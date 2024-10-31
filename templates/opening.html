@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Opening: {{ name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='chessboardjs-1.0.0/css/chessboard-1.0.0.min.css') }}"> <!-- Link to the CSS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='chessboardjs-1.0.0/js/chessboard-1.0.0.min.js') }}"></script> <!-- Link to Chessboard.js -->
+    <script>
+        $(document).ready(function() {
+            const gameFen = "{{fen}}";
+            const board = ChessBoard('board', {
+                draggable: true,
+                pieceTheme: "/static/chessboardjs-1.0.0/img/chesspieces/wikipedia/{piece}.png",
+                position: gameFen // Make sure to pass the correct variable
+            });
+        });
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc; /* Light beige background for a wood-like feel */
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #5B3A29; /* Dark brown color for the heading */
+            text-align: center;
+            margin-top: 20px;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+        }
+        #board {
+            width: 480px; /* Adjust this width as needed */
+            height: 480px; /* Adjust this height as needed */
+            border: 4px solid #8B4513; /* Dark brown border to resemble a wooden frame */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+            margin-left: 20px;
+        }
+        #stats {
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+            padding: 20px;
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+            width: 300px;
+        }
+        #stats h2 {
+            color: #5B3A29; /* Dark brown color */
+            text-align: left;
+        }
+        #description {
+            max-width: 600px;
+            margin: 20px auto;
+            text-align: left;
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+            padding: 20px; /* Add padding for better readability */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+        }
+        footer {
+            margin-top: 30px;
+            background-color: #5B3A29; /* Dark brown footer */
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        button {
+            margin-top: 20px;
+            background-color: #5B3A29; /* Match button color with the footer */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px; /* Rounded button */
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #4A2D22; /* Darker brown on hover */
+        }
+        .centered-content {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ name }}</h1>
+    <div class="container">
+        <div id="stats">
+            <h2>Stats</h2>
+            <p>{{ stats[0] }}</p>
+            <p>{{ stats[1] }}</p>
+            <p>{{ stats[2] }}</p>
+            <a href="{{ link }}" target="_blank">View Analysis</p>
+            <a href="{{ match }}" target="_blank">Master Game</a>
+        </div>
+        <div class="centered-content">
+            <div id="board"></div>
+            <div id="description">
+                <p>{{ description }}</p>
+            </div>
+            <button onclick="window.location.href='/'">Return Home</button>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2024 Chess Opening Generator</p>
+    </footer>
+</body>
+</html>
