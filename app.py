@@ -1,11 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for
 import requests, random
 from openai import OpenAI
+import os
 
 app = Flask(__name__)
 
 # Initialize the OpenAI client
-OPENAI_API_KEY = 'APIKEY'
+OPENAI_API_KEY = os.environ.get(API_KEY)
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 # Lichess API Base URL
